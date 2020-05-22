@@ -1,0 +1,17 @@
+mat-sidenav-container{
+  height: 100%;
+}
+
+mat-sidenav, mat-sidenav-content{
+  padding-right: 1rem;
+}
+
+mat-sidenav{
+  width: 15rem;
+}
+
+mat-toolbar{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}

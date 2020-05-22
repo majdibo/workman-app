@@ -1,0 +1,17 @@
+<mat-toolbar>
+  <button mat-icon-button (mouseenter)="sidenav.open()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav class="sidenav" #sidenav mode="side" (mouseleave)="sidenav.close();">
+        <ng-content select="mw-menu"></ng-content>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <ng-content select="router-outlet"></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

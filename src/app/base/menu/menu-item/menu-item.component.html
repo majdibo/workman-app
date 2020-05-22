@@ -1,0 +1,48 @@
+<mat-nav-list>
+  <ng-container [ngSwitch]="getItemType(menu)">
+    <ng-container *ngSwitchCase="0">
+      <ng-container *ngTemplateOutlet="menuitem"></ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="1">
+      <ng-container *ngTemplateOutlet="groupItem"></ng-container>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="2">
+      <ng-container *ngTemplateOutlet="subMenu"></ng-container>
+    </ng-container>
+
+  </ng-container>
+</mat-nav-list>
+
+
+<ng-template #menuitem>
+  <mat-list-item [routerLink]="menu.link">
+    <mat-icon *ngIf="menu.icon !=null" mat-list-icon>{{menu.icon}}</mat-icon>
+    <span>{{menu.title}}</span>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</ng-template>
+
+<ng-template #groupItem>
+  <mat-list-item class="mw-menu-item-group" disabled>
+    <mat-icon *ngIf="menu.icon !=null" mat-list-icon>{{menu.icon}}</mat-icon>
+    <span>{{menu.title}}</span>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</ng-template>
+
+<ng-template #subMenu>
+  <mat-list-item (click)="toggleSubmenu()">
+    <mat-icon *ngIf="menu.icon !=null" mat-list-icon>{{menu.icon}}</mat-icon>
+    <span matLine>{{menu.title}}</span>
+
+    <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'">expand_more</mat-icon>
+  </mat-list-item>
+
+  <mat-divider></mat-divider>
+  <ng-container *ngIf="expanded">
+    <mw-menu-item *ngFor="let child of menu.children" [menu]="child"></mw-menu-item>
+  </ng-container>
+
+</ng-template>
