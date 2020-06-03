@@ -1,14 +1,15 @@
 import {Controls, ControlsNames} from './shared/types';
-import {Injector, OnDestroy, OnInit, Type} from '@angular/core';
+import {Injector, Input, OnDestroy, OnInit, Type} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Converter, DefaultConverter} from './shared/converter';
 
 export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
   formGroup: FormGroup;
-  value: M;
-  converterService: Converter<M, F>;
+  @Input() value: M;
+  protected converterService: Converter<M, F>;
 
   constructor(protected fb: FormBuilder, private injector: Injector) {
+    this.converterService = this.injector.get(this.converter);
   }
 
   public get fields(): ControlsNames<F> {
@@ -20,24 +21,28 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
     return names;
   }
 
+  get converter(): Type<Converter<M, F>> {
+    return DefaultConverter;
+  }
+
   ngOnInit(): void {
     this.formGroup = this.fb.group(
       this.getControls()
     );
 
-    this.converterService = this.injector.get(this.converter);
-  }
-
-  protected abstract getControls(): Controls<F>
-
-  protected toModel(f: F): M {
-    return this.converterService.toModel(f);
+    this.updateForm(this.value);
   }
 
   ngOnDestroy(): void {
   }
 
-  update(val: F) {
+  updateForm(model: M) {
+    if (model !== undefined) {
+      this.formGroup.patchValue(this.toForm(model));
+    }
+  }
+
+  updateValue(val: F) {
     if (val !== undefined) {
       let model = this.toModel(val);
       if (this.value !== model) {
@@ -46,7 +51,13 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
     }
   }
 
-  get converter(): Type<Converter<M, F>> {
-    return DefaultConverter;
+  protected abstract getControls(): Controls<F>
+
+  protected toModel(f: F): M {
+    return this.converterService.toModel(f);
+  }
+
+  protected toForm(m: M): F {
+    return this.converterService.toForm(m);
   }
 }

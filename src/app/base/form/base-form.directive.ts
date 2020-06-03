@@ -12,7 +12,7 @@ export abstract class BaseForm<M, F = M> extends AbstractForm<M, F> implements C
   ngOnInit() {
     super.ngOnInit();
     this.formSubscription$ = this.onFormChange().subscribe(val => {
-      this.update(val);
+      this.updateValue(val);
       this.formChanged.emit(val);
     });
   }
@@ -29,7 +29,7 @@ export abstract class BaseForm<M, F = M> extends AbstractForm<M, F> implements C
   };
 
   writeValue(obj: F): void {
-    this.update(obj);
+    this.updateValue(obj);
 
     if (obj !== undefined && obj !== null) {
       this.formGroup.patchValue(obj);
@@ -52,8 +52,8 @@ export abstract class BaseForm<M, F = M> extends AbstractForm<M, F> implements C
     return this.formGroup.valueChanges;
   }
 
-  update(val: F) {
-    super.update(val);
+  updateValue(val: F) {
+    super.updateValue(val);
     this.onChange(val);
     this.onTouch(val);
   }
