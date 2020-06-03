@@ -5,13 +5,15 @@ import { MenuComponent } from './menu/menu.component';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [LayoutComponent, MenuComponent, MenuItemComponent],
   imports: [
     MaterialModule,
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports: [
     MaterialModule,
