@@ -1,6 +1,6 @@
-import {Controls, ControlsNames} from './shared/types';
+import {ArrayControls, Controls, ControlsNames} from './shared/types';
 import {Injector, Input, OnDestroy, OnInit, Type} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Converter, DefaultConverter} from './shared/converter';
 
 export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
@@ -8,8 +8,8 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
   @Input() value: M;
   protected converterService: Converter<M, F>;
 
-  constructor(protected fb: FormBuilder, private injector: Injector) {
-    this.converterService = this.injector.get(this.converter);
+  constructor(protected fb: FormBuilder, injector: Injector) {
+    this.converterService = injector.get(this.converter);
   }
 
   public get fields(): ControlsNames<F> {
@@ -25,6 +25,18 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
     return DefaultConverter;
   }
 
+  public get arrays(): ArrayControls<F> {
+    let result = {}
+    for (let controlsKey in this.formGroup.controls) {
+      let control = this.formGroup.get(controlsKey);
+      if (control instanceof FormArray) {
+        result[controlsKey] = control
+      }
+    }
+
+    return result as ArrayControls<F>;
+  }
+
   ngOnInit(): void {
     this.formGroup = this.fb.group(
       this.getControls()
@@ -37,9 +49,33 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
   }
 
   updateForm(model: M) {
-    if (model !== undefined) {
-      this.formGroup.patchValue(this.toForm(model));
+     if (model !== undefined) {
+      let formModel = this.toForm(model);
+      Object.keys(formModel).forEach(key => {
+        if(formModel[key] instanceof Array){
+          this.updateFormArray(formModel[key], this.arrays[key])
+        }
+      })
+
+       this.formGroup.patchValue(formModel);
+     }
+  }
+
+  updateFormArray(formModelElement: Array<keyof F>, array: FormArray) {
+    formModelElement.forEach(element=> {
+      array.push(this.createControlFor(element))
+    })
+  }
+
+  createControlFor(element): AbstractControl {
+    if(typeof element !== 'object') return this.fb.control(element)
+    else if (element instanceof Array) {
+      let array = this.fb.array([]);
+      this.updateFormArray(element, array);
+      return array
     }
+    else return this.fb.group(element)
+
   }
 
   updateValue(val: F) {

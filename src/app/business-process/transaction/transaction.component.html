@@ -1,0 +1,13 @@
+<div [formGroup]="formGroup">
+  <mat-form-field appearance="outline">
+    <mat-label>from</mat-label>
+    <input [formControlName]="fields.from" matInput>
+  </mat-form-field>
+
+  <mat-icon style="margin: 2rem;">trending_flat</mat-icon>
+
+  <mat-form-field appearance="outline">
+    <mat-label>to</mat-label>
+    <input [formControlName]="fields.to" matInput >
+  </mat-form-field>
+</div>

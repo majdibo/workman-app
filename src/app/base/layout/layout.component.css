@@ -3,7 +3,7 @@ mat-sidenav-container{
 }
 
 mat-sidenav, mat-sidenav-content{
-  padding-right: 1rem;
+  padding: 1rem;
 }
 
 mat-sidenav{
