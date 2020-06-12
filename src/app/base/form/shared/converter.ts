@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 
 export interface Converter<M, F = M> {
-  toModel(f: F): M
+  toModel(f: F): M;
 
   toForm(m: M): F;
 }

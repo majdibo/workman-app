@@ -1,10 +1,10 @@
 import {ControlValueAccessor} from '@angular/forms';
 import {AbstractForm} from './abstract-form.directive';
 import {Subscription} from 'rxjs';
-import {Directive, EventEmitter} from '@angular/core';
+import {Directive, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 
 @Directive()
-export abstract class BaseForm<M, F = M> extends AbstractForm<M, F> implements ControlValueAccessor {
+export abstract class BaseFormDirective<M, F = M> extends AbstractForm<M, F> implements ControlValueAccessor, OnInit, OnDestroy {
 
   public formSubscription$: Subscription;
   public formChanged = new EventEmitter<F>();
@@ -23,10 +23,10 @@ export abstract class BaseForm<M, F = M> extends AbstractForm<M, F> implements C
   }
 
   onChange: any = () => {
-  };
+  }
 
   onTouch: any = () => {
-  };
+  }
 
   writeValue(obj: F): void {
     this.updateValue(obj);

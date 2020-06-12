@@ -13,7 +13,7 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
   }
 
   public get fields(): ControlsNames<F> {
-    let names: ControlsNames<F> = {};
+    const names: ControlsNames<F> = {};
     Object.keys(this.formGroup.controls).forEach(value => {
       names[value] = value;
     });
@@ -26,11 +26,10 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
   }
 
   public get arrays(): ArrayControls<F> {
-    let result = {}
-    for (let controlsKey in this.formGroup.controls) {
-      let control = this.formGroup.get(controlsKey);
-      if (control instanceof FormArray) {
-        result[controlsKey] = control
+    const result = {};
+    for (const controlsKey in this.formGroup.controls) {
+      if (this.formGroup.get(controlsKey) instanceof FormArray) {
+        result[controlsKey] = this.formGroup.get(controlsKey);
       }
     }
 
@@ -50,44 +49,42 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
 
   updateForm(model: M) {
      if (model !== undefined) {
-      let formModel = this.toForm(model);
+      const formModel = this.toForm(model);
       Object.keys(formModel).forEach(key => {
-        if(formModel[key] instanceof Array){
-          this.updateFormArray(formModel[key], this.arrays[key])
+        if (formModel[key] instanceof Array) {
+          this.updateFormArray(formModel[key], this.arrays[key]);
         }
-      })
+      });
 
-       this.formGroup.patchValue(formModel);
+      this.formGroup.patchValue(formModel);
      }
   }
 
   updateFormArray(formModelElement: Array<keyof F>, array: FormArray) {
-    formModelElement.forEach(element=> {
-      array.push(this.createControlFor(element))
-    })
+    formModelElement.forEach(element => {
+      array.push(this.createControlFor(element));
+    });
   }
 
   createControlFor(element): AbstractControl {
-    if(typeof element !== 'object') return this.fb.control(element)
-    else if (element instanceof Array) {
-      let array = this.fb.array([]);
+    if (typeof element !== 'object') { return this.fb.control(element); } else if (element instanceof Array) {
+      const array = this.fb.array([]);
       this.updateFormArray(element, array);
-      return array
-    }
-    else return this.fb.group(element)
+      return array;
+    } else { return this.fb.group(element); }
 
   }
 
   updateValue(val: F) {
     if (val !== undefined) {
-      let model = this.toModel(val);
+      const model = this.toModel(val);
       if (this.value !== model) {
         this.value = model;
       }
     }
   }
 
-  protected abstract getControls(): Controls<F>
+  protected abstract getControls(): Controls<F>;
 
   protected toModel(f: F): M {
     return this.converterService.toModel(f);
