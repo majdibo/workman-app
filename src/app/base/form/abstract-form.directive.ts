@@ -37,18 +37,14 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.formGroup = this.fb.group(
-      this.getControls()
-    );
-
-    this.updateForm(this.value);
+    this.createForm();
   }
 
   ngOnDestroy(): void {
   }
 
   updateForm(model: M) {
-     if (model !== undefined) {
+    if (model !== undefined) {
       const formModel = this.toForm(model);
       Object.keys(formModel).forEach(key => {
         if (formModel[key] instanceof Array) {
@@ -57,7 +53,7 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
       });
 
       this.formGroup.patchValue(formModel);
-     }
+    }
   }
 
   updateFormArray(formModelElement: Array<keyof F>, array: FormArray) {
@@ -67,11 +63,15 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
   }
 
   createControlFor(element): AbstractControl {
-    if (typeof element !== 'object') { return this.fb.control(element); } else if (element instanceof Array) {
+    if (typeof element !== 'object') {
+      return this.fb.control(element);
+    } else if (element instanceof Array) {
       const array = this.fb.array([]);
       this.updateFormArray(element, array);
       return array;
-    } else { return this.fb.group(element); }
+    } else {
+      return this.fb.group(element);
+    }
 
   }
 
@@ -92,5 +92,13 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
 
   protected toForm(m: M): F {
     return this.converterService.toForm(m);
+  }
+
+  protected createForm() {
+    this.formGroup = this.fb.group(
+      this.getControls()
+    );
+
+    this.updateForm(this.value);
   }
 }
