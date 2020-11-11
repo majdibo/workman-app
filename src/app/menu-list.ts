@@ -13,7 +13,7 @@ export const MENU_LIST: MenuItem[] = [
   {
     title: 'Task Definition',
     icon: 'star',
-    link: '/process'
+    link: '/process/tasks/script'
   },
 
   {

@@ -6,9 +6,11 @@ import {BaseModule} from '../base/base.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import { TransitionComponent } from './transition/transition.component';
 import {BusinessProcessService} from './business-process.service';
+import { ScriptTaskComponent } from './tasks/script-task/script-task.component';
+import {ScriptTaskService} from './tasks/script-task/script-task.service';
 
 @NgModule({
-  declarations: [BusinessProcessComponent, TransitionComponent],
+  declarations: [BusinessProcessComponent, TransitionComponent, ScriptTaskComponent],
   imports: [
     BusinessProcessRoutingModule,
     CommonModule,
@@ -16,7 +18,8 @@ import {BusinessProcessService} from './business-process.service';
     ReactiveFormsModule
   ],
   providers:[
-    BusinessProcessService
+    BusinessProcessService,
+    ScriptTaskService
   ]
 })
 export class BusinessProcessModule { }

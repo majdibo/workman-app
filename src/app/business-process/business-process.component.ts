@@ -1,9 +1,9 @@
 import {Component, Injector} from '@angular/core';
 import {Controls} from '../base/form/shared/types';
-import {Transition} from './transition/transition';
 import {BaseFormDirective} from '../base/form/base-form.directive';
 import {FormBuilder, Validators} from '@angular/forms';
 import {BusinessProcessService} from './business-process.service';
+import {BusinessProcess} from './business.process';
 
 @Component({
   selector: 'mw-business-process',
@@ -33,9 +33,4 @@ export class BusinessProcessComponent extends BaseFormDirective<BusinessProcess>
     this.arrays.transitions.push(this.fb.control({}));
   }
 
-}
-
-class BusinessProcess {
-  name: string;
-  transitions: Transition[];
 }
