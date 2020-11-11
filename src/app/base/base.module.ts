@@ -6,6 +6,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [LayoutComponent, MenuComponent, MenuItemComponent],
@@ -13,7 +14,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     MaterialModule,
     CommonModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   exports: [
     MaterialModule,

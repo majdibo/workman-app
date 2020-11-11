@@ -1,4 +1,4 @@
-export class Transaction {
+export class Transition {
     from: string;
     to: string;
 }

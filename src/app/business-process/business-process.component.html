@@ -1,23 +1,23 @@
 <h1>Business Process</h1>
-<form (ngSubmit)="sayHello()" [formGroup]="formGroup">
+<form (ngSubmit)="apply()" [formGroup]="formGroup">
   <mat-form-field>
     <mat-label>{{fields.name}}</mat-label>
     <input [formControlName]="fields.name" matInput>
   </mat-form-field>
-  <button mat-stroked-button (click)="addTransaction()" color="primary">
+  <button type="button" mat-stroked-button (click)="addTransition()" color="primary">
     <mat-icon>add</mat-icon>
-    <mat-label>transaction</mat-label>
+    <mat-label>transition</mat-label>
   </button>
   <br>
 
-  <mat-expansion-panel [formArrayName]="fields.transactions" expanded>
+  <mat-expansion-panel [formArrayName]="fields.transitions" expanded>
     <mat-expansion-panel-header>
       <mat-panel-title>transactions</mat-panel-title>
     </mat-expansion-panel-header>
 
-    <mat-list *ngFor="let t of arrays.transactions.controls; let i = index">
+    <mat-list *ngFor="let t of arrays.transitions.controls; let i = index">
       <mat-list-item dense>
-        <mw-transaction [formControlName]="i" mat-line></mw-transaction>
+        <mw-transition [formControlName]="i" mat-line></mw-transition>
       </mat-list-item>
       <mat-divider></mat-divider>
       <br>

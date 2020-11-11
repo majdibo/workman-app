@@ -1,7 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, Injector} from '@angular/core';
 import {Controls} from '../base/form/shared/types';
-import {Transaction} from './transaction/transaction';
+import {Transition} from './transition/transition';
 import {BaseFormDirective} from '../base/form/base-form.directive';
+import {FormBuilder, Validators} from '@angular/forms';
+import {BusinessProcessService} from './business-process.service';
 
 @Component({
   selector: 'mw-business-process',
@@ -10,24 +12,30 @@ import {BaseFormDirective} from '../base/form/base-form.directive';
 })
 export class BusinessProcessComponent extends BaseFormDirective<BusinessProcess> {
 
+  constructor(private service :  BusinessProcessService, fb: FormBuilder, injector: Injector) {
+    super(fb, injector);
+  }
   protected getControls(): Controls<BusinessProcess> {
     return {
-      name: this.fb.control(''),
-      transactions: this.fb.array([])
+      name: this.fb.control('', Validators.required),
+      transitions: this.fb.array([])
     };
   }
 
-  sayHello() {
-    console.log(this.formGroup.value);
+  apply() {
+    if (this.formGroup.valid) {
+      console.log(this.value);
+      this.service.create(this.value).subscribe();
+    }
   }
 
-  addTransaction() {
-    this.arrays.transactions.push(this.fb.control({}));
+  addTransition() {
+    this.arrays.transitions.push(this.fb.control({}));
   }
 
 }
 
 class BusinessProcess {
   name: string;
-  transactions: Transaction[];
+  transitions: Transition[];
 }

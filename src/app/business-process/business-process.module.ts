@@ -4,15 +4,19 @@ import {BusinessProcessRoutingModule} from './business-process-routing.module';
 import { BusinessProcessComponent } from './business-process.component';
 import {BaseModule} from '../base/base.module';
 import {ReactiveFormsModule} from '@angular/forms';
-import { TransactionComponent } from './transaction/transaction.component';
+import { TransitionComponent } from './transition/transition.component';
+import {BusinessProcessService} from './business-process.service';
 
 @NgModule({
-  declarations: [BusinessProcessComponent, TransactionComponent],
+  declarations: [BusinessProcessComponent, TransitionComponent],
   imports: [
     BusinessProcessRoutingModule,
     CommonModule,
     BaseModule,
     ReactiveFormsModule
+  ],
+  providers:[
+    BusinessProcessService
   ]
 })
 export class BusinessProcessModule { }

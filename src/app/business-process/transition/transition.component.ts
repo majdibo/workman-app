@@ -1,17 +1,17 @@
 import {Component} from '@angular/core';
-import {Transaction} from './transaction';
+import {Transition} from './transition';
 import {subForm} from '../../base/form/shared/utils';
 import {Controls} from '../../base/form/shared/types';
 import {BaseFormDirective} from '../../base/form/base-form.directive';
 
 @Component({
-  selector: 'mw-transaction',
-  templateUrl: './transaction.component.html',
-  styleUrls: ['./transaction.component.css'],
-  providers: [subForm(TransactionComponent)]
+  selector: 'mw-transition',
+  templateUrl: './transition.component.html',
+  styleUrls: ['./transition.component.css'],
+  providers: [subForm(TransitionComponent)]
 })
-export class TransactionComponent extends BaseFormDirective<Transaction> {
-    protected getControls(): Controls<Transaction> {
+export class TransitionComponent extends BaseFormDirective<Transition> {
+    protected getControls(): Controls<Transition> {
         return {
           from: this.fb.control(''),
           to : this.fb.control('')
