@@ -4,7 +4,7 @@
     <mat-label>{{fields.name}}</mat-label>
     <input [formControlName]="fields.name" matInput>
   </mat-form-field>
-  <button type="button" mat-stroked-button (click)="addTransition()" color="primary">
+  <button  type="button" mat-stroked-button (click)="addTransition()" color="primary" *ngIf="editable">
     <mat-icon>add</mat-icon>
     <mat-label>transition</mat-label>
   </button>
@@ -25,6 +25,6 @@
   </mat-expansion-panel>
 
   <br>
-  <button mat-stroked-button type="submit">Apply</button>
+  <button mat-stroked-button type="submit" *ngIf="editable">Apply</button>
 </form>
 <span>{{value | json}}</span>

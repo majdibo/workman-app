@@ -1,7 +1,7 @@
-import {ControlValueAccessor} from '@angular/forms';
+import {ControlValueAccessor, FormArray} from '@angular/forms';
 import {AbstractForm} from './abstract-form.directive';
 import {Subscription} from 'rxjs';
-import {Directive, EventEmitter, OnDestroy, OnInit} from '@angular/core';
+import {Directive, EventEmitter, Input, OnDestroy, OnInit} from '@angular/core';
 
 @Directive()
 export abstract class BaseFormDirective<M, F = M> extends AbstractForm<M, F> implements ControlValueAccessor, OnInit, OnDestroy {
@@ -9,12 +9,19 @@ export abstract class BaseFormDirective<M, F = M> extends AbstractForm<M, F> imp
   public formSubscription$: Subscription;
   public formChanged = new EventEmitter<F>();
 
+  @Input() mode: 'edit' | 'read';
+
   ngOnInit() {
     super.ngOnInit();
     this.formSubscription$ = this.onFormChange().subscribe(val => {
       this.updateValue(val);
       this.formChanged.emit(val);
     });
+
+    if (this.mode == 'read') {
+      this.setDisabledState(true);
+    }
+
   }
 
   ngOnDestroy() {
@@ -23,10 +30,10 @@ export abstract class BaseFormDirective<M, F = M> extends AbstractForm<M, F> imp
   }
 
   onChange: any = () => {
-  }
+  };
 
   onTouch: any = () => {
-  }
+  };
 
   writeValue(obj: F): void {
     this.updateValue(obj);
@@ -46,6 +53,13 @@ export abstract class BaseFormDirective<M, F = M> extends AbstractForm<M, F> imp
   }
 
   setDisabledState(isDisabled: boolean): void {
+    for (const controlsKey in this.formGroup.controls) {
+      if (isDisabled || this.mode == 'read') {
+        this.formGroup.get(controlsKey).disable();
+      } else {
+        this.formGroup.get(controlsKey).enable();
+      }
+    }
   }
 
   onFormChange() {
@@ -58,4 +72,7 @@ export abstract class BaseFormDirective<M, F = M> extends AbstractForm<M, F> imp
     this.onTouch(val);
   }
 
+  get editable(): boolean {
+    return this.mode !== 'read'
+  }
 }

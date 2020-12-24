@@ -1,0 +1,7 @@
+form>button[type="submit"]{
+  float: right;
+}
+
+mat-form-field {
+  margin-right: 1em;
+}

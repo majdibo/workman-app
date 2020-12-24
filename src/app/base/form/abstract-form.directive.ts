@@ -1,6 +1,6 @@
 import {ArrayControls, Controls, ControlsNames} from './shared/types';
 import {Injector, Input, OnDestroy, OnInit, Type} from '@angular/core';
-import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Converter, DefaultConverter} from './shared/converter';
 
 export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
@@ -58,21 +58,8 @@ export abstract class AbstractForm<M, F = M> implements OnInit, OnDestroy {
 
   updateFormArray(formModelElement: Array<keyof F>, array: FormArray) {
     formModelElement.forEach(element => {
-      array.push(this.createControlFor(element));
+      array.push(this.fb.control(element));
     });
-  }
-
-  createControlFor(element): AbstractControl {
-    if (typeof element !== 'object') {
-      return this.fb.control(element);
-    } else if (element instanceof Array) {
-      const array = this.fb.array([]);
-      this.updateFormArray(element, array);
-      return array;
-    } else {
-      return this.fb.group(element);
-    }
-
   }
 
   updateValue(val: F) {
