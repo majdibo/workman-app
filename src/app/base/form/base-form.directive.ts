@@ -1,4 +1,4 @@
-import {ControlValueAccessor, FormArray} from '@angular/forms';
+import {ControlValueAccessor} from '@angular/forms';
 import {AbstractForm} from './abstract-form.directive';
 import {Subscription} from 'rxjs';
 import {Directive, EventEmitter, Input, OnDestroy, OnInit} from '@angular/core';

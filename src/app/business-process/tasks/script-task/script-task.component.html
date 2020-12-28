@@ -7,10 +7,10 @@
 
   <br>
 
-  <mat-form-field style=" width: 80%;" appearance="outline">
+  <div style=" width: 80%;">
     <mat-label>{{fields.script}}</mat-label>
-    <textarea [formControlName]="fields.script" cols="10" rows="20" matInput></textarea>
-  </mat-form-field>
+   <mw-editor [formControlName]="fields.script" ></mw-editor>
+  </div>
 
   <br>
   <input [formControlName]="fields.type" type="hidden">

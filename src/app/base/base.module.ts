@@ -7,20 +7,24 @@ import {RouterModule} from '@angular/router';
 import { MenuItemComponent } from './menu/menu-item/menu-item.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import { EditorComponent } from './form/shared/value-component/editor/editor.component';
+import {CodemirrorModule} from '@ctrl/ngx-codemirror';
 
 @NgModule({
-  declarations: [LayoutComponent, MenuComponent, MenuItemComponent],
+  declarations: [LayoutComponent, MenuComponent, MenuItemComponent, EditorComponent],
   imports: [
     MaterialModule,
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CodemirrorModule,
   ],
   exports: [
     MaterialModule,
     LayoutComponent,
-    MenuComponent
+    MenuComponent,
+    EditorComponent
   ]
 })
 export class BaseModule {
