@@ -7,7 +7,7 @@
 
   <br>
 
-  <div style=" width: 80%;">
+  <div>
     <mat-label>{{fields.script}}</mat-label>
    <mw-editor [formControlName]="fields.script" ></mw-editor>
   </div>
@@ -15,6 +15,7 @@
   <br>
   <input [formControlName]="fields.type" type="hidden">
 
-  <button mat-stroked-button type="submit">Apply</button>
+  <button class="form-action" color="warn" mat-stroked-button routerLink=".." type="button" >Cancel</button>
+  <button class="form-action" color="primary" mat-stroked-button type="submit">Apply</button>
 </form>
 <span>{{value | json}}</span>

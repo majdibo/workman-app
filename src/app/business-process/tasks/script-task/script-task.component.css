@@ -1,4 +1,4 @@
-form>button[type="submit"]{
+form>button.form-action{
   float: right;
 }
 

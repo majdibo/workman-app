@@ -25,7 +25,8 @@ export class EditorComponent extends AbstractValueComponent implements AfterView
     lineNumbers: true,
     extraKeys: {'Ctrl-Space': 'autocomplete'},
     autoCloseBrackets: true,
-    matchBrackets: true
+    matchBrackets: true,
+   // viewportMargin: Infinity,
   };
 
   @Input() parameters = [];

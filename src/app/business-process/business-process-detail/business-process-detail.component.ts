@@ -1,16 +1,16 @@
 import {Component, Injector} from '@angular/core';
-import {Controls} from '../base/form/shared/types';
-import {BaseFormDirective} from '../base/form/base-form.directive';
+import {Controls} from '../../base/form/shared/types';
+import {BaseFormDirective} from '../../base/form/base-form.directive';
 import {FormBuilder, Validators} from '@angular/forms';
-import {BusinessProcessService} from './business-process.service';
-import {BusinessProcess} from './business.process';
+import {BusinessProcessService} from '../business-process.service';
+import {BusinessProcess} from '../business.process';
 
 @Component({
   selector: 'mw-business-process',
-  templateUrl: 'business-process.component.html',
-  styleUrls: ['business-process.component.css']
+  templateUrl: 'business-process-detail.component.html',
+  styleUrls: ['business-process-detail.component.css']
 })
-export class BusinessProcessComponent extends BaseFormDirective<BusinessProcess> {
+export class BusinessProcessDetailComponent extends BaseFormDirective<BusinessProcess> {
 
   constructor(private service :  BusinessProcessService, fb: FormBuilder, injector: Injector) {
     super(fb, injector);

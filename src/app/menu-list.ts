@@ -7,13 +7,13 @@ export const MENU_LIST: MenuItem[] = [
   },
   {
     title: 'Process Definition',
-    icon: 'home',
+    icon: 'call_split',
     link: '/process'
   },
   {
     title: 'Task Definition',
-    icon: 'star',
-    link: '/process/tasks/script'
+    icon: 'task_alt',
+    link: '/process/tasks'
   },
 
   {
@@ -22,7 +22,7 @@ export const MENU_LIST: MenuItem[] = [
   },
   {
     title: 'Process',
-    icon: 'star',
+    icon: 'timeline',
     link: '/process'
   },
 ];

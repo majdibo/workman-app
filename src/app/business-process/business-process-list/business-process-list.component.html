@@ -1,0 +1,7 @@
+<button  type="button" mat-stroked-button routerLink="definition" color="primary" style="float: right; margin-bottom: 2rem;">
+  <mat-icon>add</mat-icon>
+  <mat-label>process</mat-label>
+</button>
+
+
+<mw-datatable [columns]="columns" [data]="entities" (onAction)="onActionHandler($event)"></mw-datatable>
