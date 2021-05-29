@@ -25,7 +25,7 @@ export class BusinessProcessDetailComponent extends BaseFormDirective<BusinessPr
   apply() {
     if (this.formGroup.valid) {
       console.log(this.value);
-      this.service.create(this.value).subscribe();
+      this.service.create(this.value).subscribe(() => this.formGroup.reset());
     }
   }
 

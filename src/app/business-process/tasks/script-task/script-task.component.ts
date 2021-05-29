@@ -28,7 +28,7 @@ export class ScriptTaskComponent extends BaseFormDirective<ScriptTask> {
   apply() {
     if (this.formGroup.valid) {
       console.log(this.value);
-      this.service.create(this.value).subscribe();
+      this.service.create(this.value).subscribe(() => this.formGroup.reset());
     }
   }
 }

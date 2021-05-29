@@ -14,7 +14,8 @@ export class TransitionComponent extends BaseFormDirective<Transition> {
     protected getControls(): Controls<Transition> {
         return {
           from: this.fb.control(''),
-          to : this.fb.control('')
+          to : this.fb.control(''),
+          waitCompletion: this.fb.control(false)
         };
     }
 
