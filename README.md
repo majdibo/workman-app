@@ -1,6 +1,6 @@
 # WorkmanApp
 front end to for workflow management 
 
-##Setup
+## Setup
 
 run `npm i` then run `npm start`
